@@ -9,8 +9,8 @@ import SwiftUI
 
 struct UserClassicListView: View {
     
-    @StateObject private var viewModel = UserListViewModel(repository: UserListRepository())
-
+    @ObservedObject var viewModel: UserListViewModel
+    
     var body: some View {
         List(viewModel.users) { user in
             NavigationLink(destination: UserDetailView(user: user)) {
@@ -35,14 +35,14 @@ struct UserClassicListView: View {
                     }
                 }
             }
-
+            .onAppear {
+                if self.viewModel.shouldLoadMoreData(currentItem: user) {
+                    Task {
+                        await self.viewModel.fetchUsers()
+                    }
+                }
             }
-//        .onAppear {
-//                if self.viewModel.shouldLoadMoreData(currentItem: user) {
-               
-//                }
-        
-    
+        }
     }
 }
 

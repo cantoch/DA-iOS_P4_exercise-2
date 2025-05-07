@@ -9,8 +9,8 @@ import SwiftUI
 
 struct UserGridListView: View {
     
-    @StateObject private var viewModel = UserListViewModel(repository: UserListRepository())
-
+    @ObservedObject var viewModel: UserListViewModel
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: [GridItem(.adaptive(minimum: 150))]) {
@@ -34,14 +34,15 @@ struct UserGridListView: View {
                                 .multilineTextAlignment(.center)
                         }
                     }
-//                    .onAppear {
-////                        if self.viewModel.shouldLoadMoreData(currentItem: user) {
-//                            self.viewModel.fetchUsers()
-////                        }
-//                    }
+                    .onAppear {
+                        if self.viewModel.shouldLoadMoreData(currentItem: user) {
+                            Task {
+                                await self.viewModel.fetchUsers()
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
-

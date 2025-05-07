@@ -10,15 +10,15 @@ import SwiftUI
 struct UserListView: View {
     
     @StateObject var viewModel = UserListViewModel(repository: UserListRepository())
-
+    
     var body: some View {
         NavigationView {
             Group {
                 if viewModel.isGridView {
-                    UserGridListView()
+                    UserGridListView(viewModel: viewModel)
                 }
                 else {
-                    UserClassicListView()
+                    UserClassicListView(viewModel: viewModel)
                 }
             }
             .navigationTitle("Users")
@@ -36,7 +36,9 @@ struct UserListView: View {
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
-//                        self.viewModel.reloadUsers()
+                        Task {
+                            await self.viewModel.reloadUsers()
+                        }
                     }) {
                         Image(systemName: "arrow.clockwise")
                             .imageScale(.large)
@@ -45,9 +47,7 @@ struct UserListView: View {
             }
             .task {
                 await viewModel.fetchUsers()
-                UserClassicListView()
             }
-
         }
     }
 }
