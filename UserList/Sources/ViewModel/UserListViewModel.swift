@@ -35,22 +35,20 @@ class UserListViewModel: ObservableObject {
     @MainActor
     func fetchUsers() async {
         isLoading = true
-        Task {
-            do {
-                let users = try await repository.fetchUsers(quantity: 20)
-                self.users.append(contentsOf: users)
-                print(users.count)
-                isLoading = false
-            } catch {
-                print("Error fetching users: \(error.localizedDescription)")
-            }
+        do {
+            let users = try await repository.fetchUsers(quantity: 20)
+            self.users.append(contentsOf: users)
+            
+        } catch {
+            print("Error fetching users: \(error.localizedDescription)")
         }
+        isLoading = false
     }
     
     @MainActor
     func reloadUsers() async {
         users.removeAll()
-        await fetchUsers()
+         await fetchUsers()
     }
 }
 

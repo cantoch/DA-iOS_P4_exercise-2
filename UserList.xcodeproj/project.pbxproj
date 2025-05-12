@@ -16,6 +16,8 @@
 		2FF9D91F2ACB3DD400F3A6C5 /* UserListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF9D91E2ACB3DD400F3A6C5 /* UserListRepository.swift */; };
 		2FFB64282AC6D255007F2F80 /* UserListApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FFB64272AC6D255007F2F80 /* UserListApp.swift */; };
 		2FFB642C2AC6D256007F2F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FFB642B2AC6D256007F2F80 /* Assets.xcassets */; };
+		9ABC2FBB2DCE4E9500D7A811 /* UserListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABC2FBA2DCE4E9500D7A811 /* UserListViewModelTests.swift */; };
+		9ABC2FBD2DCE7F1900D7A811 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABC2FBC2DCE7F1100D7A811 /* MockData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +43,8 @@
 		2FFB64272AC6D255007F2F80 /* UserListApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListApp.swift; sourceTree = "<group>"; };
 		2FFB642B2AC6D256007F2F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FFB64342AC6D256007F2F80 /* UserListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UserListTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9ABC2FBA2DCE4E9500D7A811 /* UserListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListViewModelTests.swift; sourceTree = "<group>"; };
+		9ABC2FBC2DCE7F1100D7A811 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -130,8 +134,10 @@
 		2FFB64372AC6D256007F2F80 /* UserListTests */ = {
 			isa = PBXGroup;
 			children = (
+				9ABC2FBC2DCE7F1100D7A811 /* MockData.swift */,
 				2F015BA72ACC938F009A098C /* UserListRepositoryTests.swift */,
 				2FB4823B2ACC98DD0016CBA7 /* UserList.xctestplan */,
+				9ABC2FBA2DCE4E9500D7A811 /* UserListViewModelTests.swift */,
 			);
 			path = UserListTests;
 			sourceTree = "<group>";
@@ -255,6 +261,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2F015BA82ACC938F009A098C /* UserListRepositoryTests.swift in Sources */,
+				9ABC2FBD2DCE7F1900D7A811 /* MockData.swift in Sources */,
+				9ABC2FBB2DCE4E9500D7A811 /* UserListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

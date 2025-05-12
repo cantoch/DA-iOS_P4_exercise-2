@@ -2,22 +2,37 @@ import XCTest
 @testable import UserList
 
 final class UserListRepositoryTests: XCTestCase {
-    // Happy path test case
+    var viewModel: UserListViewModel!
+    var mockData =  MockData()
+    var repository: UserListRepository!
+
+    override func setUp()  {
+        super.setUp()
+        mockData.isValidResponse = true
+        repository = UserListRepository(executeDataRequest: mockData.executeRequest)
+        viewModel = UserListViewModel(repository: repository)
+    }
+
+    override func tearDown() {
+        super.tearDown()
+        viewModel = nil
+        repository = nil
+    }
+
     func testFetchUsersSuccess() async throws {
-        // Given
-        let repository = UserListRepository(executeDataRequest: mockExecuteDataRequest)
-        let quantity = 2
-        
-        // When
+        //Given
+        let quantity: Int = 2
+
+        //When
         let users = try await repository.fetchUsers(quantity: quantity)
-        
-        // Then
+
+        //Then
         XCTAssertEqual(users.count, quantity)
         XCTAssertEqual(users[0].name.first, "John")
         XCTAssertEqual(users[0].name.last, "Doe")
         XCTAssertEqual(users[0].dob.age, 31)
-        XCTAssertEqual(users[0].picture.large, "https://example.com/large.jpg")
-        
+        XCTAssertEqual(users[0].picture.thumbnail, "https://example.com/thumbnail.jpg")
+
         XCTAssertEqual(users[1].name.first, "Jane")
         XCTAssertEqual(users[1].name.last, "Smith")
         XCTAssertEqual(users[1].dob.age, 26)
