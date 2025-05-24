@@ -8,8 +8,6 @@
 import Foundation
 import SwiftUI
 
-
-
 class UserListViewModel: ObservableObject {
     @Published var users: [User] = []
     @Published var isLoading: Bool = false
@@ -20,16 +18,12 @@ class UserListViewModel: ObservableObject {
         self.repository = repository
     }
     
-    
-    
     // MARK: - Outputs
     
     func shouldLoadMoreData(currentItem item: User) -> Bool {
         guard let lastItem = users.last else { return false }
         return !isLoading && item.id == lastItem.id
     }
-    
-    
     
     // MARK: - Inputs
     @MainActor
@@ -48,7 +42,7 @@ class UserListViewModel: ObservableObject {
     @MainActor
     func reloadUsers() async {
         users.removeAll()
-         await fetchUsers()
+        await fetchUsers()
     }
 }
 

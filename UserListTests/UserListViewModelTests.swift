@@ -12,20 +12,20 @@ final class UserListViewModelTests: XCTestCase {
     var viewModel: UserListViewModel!
     var mockData = MockData()
     var repository: UserListRepository!
-
-    override func setUp()  {
+    
+    override func setUp() {
         super.setUp()
         mockData.isValidResponse = true
         repository = UserListRepository(executeDataRequest: mockData.executeRequest)
         viewModel = UserListViewModel(repository: repository)
     }
-
+    
     override func tearDown() {
         viewModel = nil
         repository = nil
         super.tearDown()
     }
-
+    
     func testShouldLoadMoreData() async {
         // Given
         await viewModel.fetchUsers()
@@ -63,13 +63,4 @@ final class UserListViewModelTests: XCTestCase {
         let reloadedUserCount = viewModel.users.count
         XCTAssert(reloadedUserCount == 2)
     }
-    // Test qui ne m'assure pas à 100% que les utilisateurs apres le reloadUsers soient différents de ceux avant le reloadUsers
-    
-    
-    
-    
 }
-
-
-
-//Le reload, le shouldNotLoad à tester

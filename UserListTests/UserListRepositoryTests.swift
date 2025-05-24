@@ -3,43 +3,42 @@ import XCTest
 
 final class UserListRepositoryTests: XCTestCase {
     var viewModel: UserListViewModel!
-    var mockData =  MockData()
+    var mockData = MockData()
     var repository: UserListRepository!
-
-    override func setUp()  {
+    
+    override func setUp() {
         super.setUp()
         mockData.isValidResponse = true
         repository = UserListRepository(executeDataRequest: mockData.executeRequest)
         viewModel = UserListViewModel(repository: repository)
     }
-
+    
     override func tearDown() {
         super.tearDown()
         viewModel = nil
         repository = nil
     }
-
+    
     func testFetchUsersSuccess() async throws {
-        //Given
+        // Given
         let quantity: Int = 2
-
-        //When
+        
+        // When
         let users = try await repository.fetchUsers(quantity: quantity)
-
-        //Then
+        
+        // Then
         XCTAssertEqual(users.count, quantity)
         XCTAssertEqual(users[0].name.first, "John")
         XCTAssertEqual(users[0].name.last, "Doe")
         XCTAssertEqual(users[0].dob.age, 31)
         XCTAssertEqual(users[0].picture.thumbnail, "https://example.com/thumbnail.jpg")
-
+        
         XCTAssertEqual(users[1].name.first, "Jane")
         XCTAssertEqual(users[1].name.last, "Smith")
         XCTAssertEqual(users[1].dob.age, 26)
         XCTAssertEqual(users[1].picture.medium, "https://example.com/medium.jpg")
     }
     
-    // Unhappy path test case: Invalid JSON response
     func testFetchUsersInvalidJSONResponse() async throws {
         // Given
         let invalidJSONData = "invalid JSON".data(using: .utf8)!
@@ -49,7 +48,7 @@ final class UserListRepositoryTests: XCTestCase {
             httpVersion: nil,
             headerFields: nil
         )!
-
+        
         let mockExecuteDataRequest: (URLRequest) async throws -> (Data, URLResponse) = { _ in
             return (invalidJSONData, invalidJSONResponse)
         }
@@ -68,9 +67,7 @@ final class UserListRepositoryTests: XCTestCase {
 }
 
 private extension UserListRepositoryTests {
-    // Define a mock for executeDataRequest that returns predefined data
     func mockExecuteDataRequest(_ request: URLRequest) async throws -> (Data, URLResponse) {
-        // Create mock data with a sample JSON response
         let sampleJSON = """
             {
                 "results": [
